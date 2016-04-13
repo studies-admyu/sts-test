@@ -45,8 +45,8 @@ void initRenderSystem(std::unique_ptr<Ogre::Root>& root)
 int main(int argc, char* argv[])
 {
 	try {
-		Ogre::String lConfigFileName = "";
-		Ogre::String lPluginsFileName = "";
+		Ogre::String lConfigFileName = "ogre.cfg";
+		Ogre::String lPluginsFileName = "plugins.cfg";
 		Ogre::String lLogFileName = "Ogre_STS.log";
 
 		std::unique_ptr<Ogre::Root> lRoot(new Ogre::Root(lPluginsFileName, lConfigFileName, lLogFileName));
