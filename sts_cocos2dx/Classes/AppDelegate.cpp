@@ -8,6 +8,8 @@ static cocos2d::Size smallResolutionSize = cocos2d::Size(480, 320);
 static cocos2d::Size mediumResolutionSize = cocos2d::Size(1024, 768);
 static cocos2d::Size largeResolutionSize = cocos2d::Size(2048, 1536);
 
+static cocos2d::Size desktopMediumResolutionSize = cocos2d::Size(800, 600);
+
 AppDelegate::AppDelegate() {
 
 }
@@ -40,7 +42,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto glview = director->getOpenGLView();
     if(!glview) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
-        glview = GLViewImpl::createWithRect("sts_cocos2dx", Rect(0, 0, designResolutionSize.width, designResolutionSize.height));
+		glview = GLViewImpl::createWithRect("sts_cocos2dx", Rect(0, 0, desktopMediumResolutionSize.width, desktopMediumResolutionSize.height));
 #else
         glview = GLViewImpl::create("sts_cocos2dx");
 #endif

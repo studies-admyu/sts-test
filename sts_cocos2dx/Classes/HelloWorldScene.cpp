@@ -13,6 +13,23 @@ Scene* HelloWorld::createScene()
     // add layer as a child to scene
     scene->addChild(layer);
 
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+
+	auto camera = Camera::createPerspective(60, float(visibleSize.width) / visibleSize.height, 1, 1000);
+	camera->setPosition3D(Vec3(0.0f, 100.0f, -1.0f));
+	camera->lookAt(Vec3(0.0f, 0.0f, 0.0f));
+	scene->addChild(camera);
+
+	auto shipSprite = Sprite3D::create("airship.c3b");
+	shipSprite->setScale(10.0f);
+	shipSprite->setPosition3D(Vec3(0.0f, -200.0f, 100.0f));
+	//shipSprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height * 0.6 + origin.y));
+	scene->addChild(shipSprite, -1);
+
+	auto light = AmbientLight::create (Color3B::WHITE);
+	light->setPosition3D(camera->getPosition3D());
+	scene->addChild(light);
+
     // return the scene
     return scene;
 }
@@ -26,61 +43,14 @@ bool HelloWorld::init()
     {
         return false;
     }
+
+	setColor(ccc3(255, 0, 255));
     
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
     /////////////////////////////
-    // 2. add a menu item with "X" image, which is clicked to quit the program
-    //    you may modify it.
-
-    // add a "close" icon to exit the progress. it's an autorelease object
-    auto closeItem = MenuItemImage::create(
-                                           "CloseNormal.png",
-                                           "CloseSelected.png",
-                                           CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));
-    
-	closeItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
-                                origin.y + closeItem->getContentSize().height/2));
-
-    // create menu, it's an autorelease object
-    auto menu = Menu::create(closeItem, NULL);
-    menu->setPosition(Vec2::ZERO);
-    this->addChild(menu, 1);
-
-    /////////////////////////////
-    // 3. add your codes below...
-
-    // add a label shows "Hello World"
-    // create and initialize a label
-    
-    auto label = Label::createWithTTF("Hello World", "fonts/Marker Felt.ttf", 24);
-    
-    // position the label on the center of the screen
-    label->setPosition(Vec2(origin.x + visibleSize.width/2,
-                            origin.y + visibleSize.height - label->getContentSize().height));
-
-    // add the label as a child to this layer
-    this->addChild(label, 1);
-
-    // add "HelloWorld" splash screen"
-    auto sprite = Sprite::create("HelloWorld.png");
-
-    // position the sprite on the center of the screen
-    sprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
-
-    // add the sprite as a child to this layer
-    this->addChild(sprite, 0);
+    // 2. add your codes below...
     
     return true;
-}
-
-
-void HelloWorld::menuCloseCallback(Ref* pSender)
-{
-    Director::getInstance()->end();
-
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    exit(0);
-#endif
 }
